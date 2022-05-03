@@ -34,7 +34,7 @@ while(numFound <= 5):
             newHash = hashlib.md5(newString.encode())
             newTinyHash = (newHash.hexdigest())[0:5]
 
-            if(tinyresult == newTinyHash):
+            if(tinyresult == newTinyHash and numFound <= 5):
                 print("Found collision after %d attempts: %d" %(counter,numFound))
                 numFound += 1
 
