@@ -5,6 +5,8 @@ import re
 print("Pex2 by Andrew Lee")
 print("Sadly written in python and not Haskell")
 print()
+print("Starting Task 1...")
+print()
 
 fileOpen = open("samplefile.txt", "r+")
 fileString = fileOpen.read()
@@ -13,12 +15,9 @@ fileOpen.close()
 result = hashlib.md5(fileString.encode())
 tinyresult = (result.hexdigest())[0:5]
 
-print("Hash of the original files:")
-print(result.hexdigest())
-print()
-
-print("Tiny hash of the original files:")
-print(tinyresult)
+print("Original file is: samplefile.txt")
+print("Hash of the original file:", result.hexdigest())
+print("Tiny hash of the original file:", tinyresult)
 print("-----------------------------------")
 
 counter = 0
@@ -36,6 +35,13 @@ while(numFound <= 5):
 
             if(tinyresult == newTinyHash and numFound <= 5):
                 print("Found collision after %d attempts: %d" %(counter,numFound))
+                print("writing to file: collision" + str(numFound) + ".txt")
+                print()
+
+                newFile = open("collision" + str(numFound) + ".txt", "a")
+                newFile.write(newString)
+                newFile.close()
+
                 numFound += 1
 
     lines = open("words.txt", "r").read().splitlines()
@@ -53,12 +59,9 @@ fileTaskTwo.close()
 nfthash = hashlib.md5(stringTaskTwo.encode())
 tinynft = (nfthash.hexdigest())[0:5]
 
-print("Hash of the original files:")
-print(nfthash.hexdigest())
-print()
+print("Hash of the original file:", nfthash.hexdigest())
+print("Tiny hash:", tinynft)
 
-print("Tiny hash:")
-print(tinynft)
 print("-----------------------------------")
 
 nftnum = int(re.findall(r'\d+', stringTaskTwo)[0])
@@ -74,6 +77,12 @@ while (price < nftnum):
 
     if(newTinyHash == tinynft):
         print("Found Hash collision with value $", price)
+        print("new contract saved to file: newcontract.txt")
+
+        newFile = open("newcontract.txt", "a")
+        newFile.write(newString)
+        newFile.close()
+
         break
 
     price += 1
